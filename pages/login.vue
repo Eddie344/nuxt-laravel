@@ -38,23 +38,25 @@
       return {
         formData: {
           email: null,
-          password: null
+          password: null,
+          device_name: 'browser'
         },
         error: {},
       };
     },
-    mounted() {
-      // Before loading login page, obtain csrf cookie from the server.
-      this.$axios.$get('/api/csrf-cookie');
-    },
     methods: {
       async login() {
         this.error = {};
+        this.loading = true;
         try {
-          await this.$auth.loginWith('local', { data: this.formData });
+          let res = await this.$auth.loginWith('local', { data: this.formData });
+          await this.$auth.setUserToken(`Bearer ${res.data}`);
+          await this.$auth.fetchUser();
+
+          this.loading = false;
         } catch (err) {
+          this.loading = false;
           this.error = err;
-          // do something with error
         }
       },
     },
