@@ -1,39 +1,42 @@
 <template>
-  <div class="flex h-screen items-center justify-center">
-    <form ref="loginform" @submit.prevent="login()" class="w-1/4 mx-auto p-4">
-      <h1 class="font-semibold mb-2 text-xl">
-        Login
-      </h1>
-      <div class="mb-4">
-        <label for="email" class="block mb-1 text-sm">Email</label>
-        <input
-          type="email"
+  <v-card
+    elevation="2"
+    class="mx-auto my-12"
+    min-width="350"
+    :loading="loading"
+  >
+    <v-card-text>
+      <v-form @submit.prevent="login">
+        <v-text-field
           v-model="formData.email"
-          class="w-full border rounded px-3 py-2"
+          label="E-mail"
           required
-        />
-      </div>
-      <div class="mb-4">
-        <label for="password" class="block mb-1 text-sm">Password</label>
-        <input
-          type="password"
+        ></v-text-field>
+
+        <v-text-field
           v-model="formData.password"
-          class="w-full border rounded px-3 py-2"
+          type="password"
+          label="Password"
           required
-        />
-      </div>
-      <button
-        type="submit"
-        class="bg-blue-500 text-white font-semibold py-2 px-10 w-full rounded"
-      >
-        Login
-      </button>
-    </form>
-  </div>
+        ></v-text-field>
+
+        <v-btn
+          color="success"
+          class="mr-4"
+          type="submit"
+          :disabled="loading"
+        >
+          Login
+        </v-btn>
+      </v-form>
+    </v-card-text>
+  </v-card>
+
 </template>
 
 <script>
   export default {
+    layout: 'empty',
     data() {
       return {
         formData: {
@@ -41,6 +44,7 @@
           password: null,
           device_name: 'browser'
         },
+        loading: false,
         error: {},
       };
     },
@@ -57,8 +61,12 @@
         } catch (err) {
           this.loading = false;
           this.error = err;
+          // do something with error
         }
       },
     },
   };
 </script>
+
+<style lang="sass" scoped>
+</style>

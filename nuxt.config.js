@@ -2,7 +2,7 @@ export default {
   ssr: false,
 
   head: {
-    title: 'nuxt-laravel',
+    title: 'Fortuna Admin',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -23,6 +23,7 @@ export default {
   components: true,
 
   buildModules: [
+    '@nuxtjs/vuetify',
   ],
 
   modules: [
@@ -31,7 +32,7 @@ export default {
   ],
 
   axios: {
-    baseURL: "http://laravel-nuxt.test",
+    baseURL: "http://fortuna-api.test",
   },
   auth: {
     redirect: {
@@ -48,7 +49,7 @@ export default {
           user: { url: '/api/user', method: 'get', propertyName: false }
         },
         autoFetchUser: false,
-        tokenRequired: false,
+        tokenRequired: true,
         tokenType: false
       }
     },
